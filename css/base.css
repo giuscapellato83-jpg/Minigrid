@@ -1,0 +1,47 @@
+/* ══════════════════════════════════════════
+   BASE — D06: design system tokens
+══════════════════════════════════════════ */
+:root{
+  /* Grid */
+  --c4:72px;--c6:56px;--c9:38px;--gap:7px;
+  /* Spacing */
+  --sp-xs:4px;--sp-sm:8px;--sp-md:16px;--sp-lg:24px;--sp-xl:32px;
+  /* Radius */
+  --r:17px;--r-sm:10px;--r-lg:22px;--r-full:50%;
+  /* Shadow */
+  --shadow-sm:0 2px 6px rgba(0,0,0,.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,.12);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.16);
+  /* Colors (defaults, overridden by theme) */
+  --bg:#fff0f9;--bg2:#ffe0f2;--card:#fff;
+  --accent:#d63fa6;--a2:#9b10a0;
+  --soft:#ffe0f4;--text:#2d1f35;--muted:#b080b0;
+  --sh:rgba(214,63,166,.18);
+  /* Transitions */
+  --tr-fast:.15s;--tr-med:.28s;--tr-slow:.45s;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);transition:background .45s,color .45s;}
+
+/* THEMES */
+body.aurora{--bg:#fff0f9;--bg2:#ffe0f2;--card:#fff;--accent:#d63fa6;--a2:#9b10a0;--soft:#ffe0f4;--text:#2d1f35;--muted:#b080b0;--sh:rgba(214,63,166,.2);}
+body.oceano{--bg:#edf8ff;--bg2:#d8f0ff;--card:#fff;--accent:#1a7fbf;--a2:#0d5a8a;--soft:#cce8ff;--text:#0d2535;--muted:#6aaac8;--sh:rgba(26,127,191,.2);}
+body.terra {--bg:#fff7ee;--bg2:#ffedd8;--card:#fff;--accent:#c05a20;--a2:#7a3a10;--soft:#ffe0c0;--text:#2a1800;--muted:#b08060;--sh:rgba(192,90,32,.2);}
+body.cosmo {--bg:#f0f0ff;--bg2:#e4e4ff;--card:#fff;--accent:#5b5ea6;--a2:#2d3070;--soft:#dddeff;--text:#1a1a40;--muted:#8888c0;--sh:rgba(91,94,166,.2);}
+
+/* SCREENS */
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
+  overflow-y:auto;overflow-x:hidden;opacity:0;pointer-events:none;
+  transition:opacity .28s,transform .28s;transform:translateY(14px);background:var(--bg);}
+.screen.active{opacity:1;pointer-events:all;transform:translateY(0);}
+/* ══ VD07: Safe area for notch/home bar ══ */
+@supports(padding-bottom: env(safe-area-inset-bottom)) {
+  .game-controls, .tang-controls, .slide-preview-row, .maze-dpad,
+  .nono-mode-row, .cel-btns, .tut-nav {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .map-hdr, .game-hdr {
+    padding-top: max(12px, env(safe-area-inset-top, 0px));
+  }
+}

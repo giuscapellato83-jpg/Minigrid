@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#d63fa6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="MiniGrid — Giochi di logica per bambini: Sudoku, KenKen, Labirinto, Nonogramma, Tangram, Rompicapo">
+<title>MiniGrid ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/screens.css">
+<link rel="stylesheet" href="css/games.css">
+</head>
+<body class="aurora">
+
+<!-- B07: Splash screen (removed by init.js) -->
+<div id="splash-screen" class="splash-screen">
+  <div class="splash-logo">MiniGrid</div>
+  <div class="splash-tag">Caricamento... ✨</div>
+</div>
+
+<!-- ═══ GAME SELECTION ═══ -->
+<div class="screen" id="s-games">
+  <div class="games-hero">
+    <div class="games-hero-logo">MiniGrid</div>
+    <div class="games-hero-av" id="games-av">🦊</div>
+    <div class="games-hero-name" id="games-name">Ciao!</div>
+    <div class="games-hero-sub">Che gioco vuoi fare oggi?</div>
+  </div>
+  <div class="games-scroll">
+    <div class="games-label">🎮 Scegli il tuo gioco</div>
+    <div class="games-grid" id="games-grid"></div>
+    <button class="btn-games-back" id="btn-games-back">← Cambia giocatore</button>
+  </div>
+</div>
+
+<!-- ═══ WELCOME ═══ -->
+<div class="screen active" id="s-wel">
+  <div style="text-align:center">
+    <div class="logo">MiniGrid</div>
+    <div class="logo-tag">🎯 pensa · osserva · gioca</div>
+  </div>
+  <div class="preview-grid" id="preview-grid"></div>
+  <button class="btn-big" id="btn-ws">▶&nbsp; Inizia a giocare!</button>
+  <button class="btn-sec" id="btn-wt">👩‍🏫 Area Insegnanti</button>
+</div>
+
+<!-- ═══ WHO'S PLAYING ═══ -->
+<div class="screen" id="s-who">
+  <div class="who-hero">
+    <div class="who-hero-logo">MiniGrid</div>
+    <div class="who-hero-sub">Chi gioca oggi? 👇</div>
+  </div>
+  <div class="who-scroll">
+    <div class="who-label" id="who-label">Scegli il tuo profilo</div>
+    <div class="profile-grid" id="profile-grid"></div>
+    <button class="btn-who-play" id="btn-who-play" disabled>Gioca! ▶</button>
+    <button class="btn-who-edit" id="btn-who-edit">✏️ Gestisci profili</button>
+    <button class="btn-who-edit" id="btn-who-back" style="margin-top:2px;color:var(--muted)">← Torna al menu</button>
+  </div>
+</div>
+
+<!-- ═══ PROFILE ═══ -->
+<div class="screen" id="s-pro">
+  <div class="pro-hero"><h1>Crea il tuo profilo ✨</h1><p>Scegli avatar, nome e i tuoi colori</p></div>
+  <div class="pro-body">
+    <div><span class="sec-lbl">Il tuo avatar</span><div class="av-row" id="av-row"></div></div>
+    <div class="name-box">
+      <span class="sec-lbl">Come ti chiami?</span>
+      <input class="name-inp" id="name-inp" type="text" placeholder="es. Giulia, Marco…" maxlength="12" autocomplete="off">
+    </div>
+    <div style="width:100%;max-width:400px">
+      <span class="sec-lbl">Scegli la tua palette 🎨</span>
+      <div class="pal-grid" id="pal-grid"></div>
+    </div>
+    <div style="width:100%;max-width:400px">
+      <span class="sec-lbl">Stile di gioco 🎮</span>
+      <div class="sym-grid" id="sym-grid"></div>
+    </div>
+    <div style="width:100%;max-width:400px">
+      <span class="sec-lbl">Livello di partenza 🎯</span>
+      <div class="level-grid" id="level-grid"></div>
+    </div>
+    <button class="btn-confirm" id="btn-confirm" disabled>Andiamo! 🚀</button>
+    <button class="btn-who-edit" id="btn-pro-back" style="margin-top:4px">← Torna indietro</button>
+  </div>
+</div>
+
+<!-- ═══ TUTORIAL ═══ -->
+<div class="screen" id="s-tut">
+  <div class="tut-progress" id="tut-progress"></div>
+  <div id="tut-slide-wrap" style="flex:1;width:100%;position:relative;overflow:hidden;"></div>
+  <div class="tut-nav" style="padding:0 24px 32px;max-width:400px;width:100%;">
+    <button class="btn-tut secondary" id="btn-tut-skip">Salta</button>
+    <button class="btn-tut primary" id="btn-tut-next">Avanti →</button>
+  </div>
+</div>
+
+<!-- ═══ MAP ═══ -->
+<div class="screen" id="s-map">
+  <div class="map-hdr">
+    <div class="map-user">
+      <button class="map-switch-prof" id="btn-map-switch">
+        <span id="map-av">🦊</span>
+        <span id="map-greet">Ciao!</span>
+        <span style="font-size:11px;opacity:.8">▼</span>
+      </button>
+    </div>
+    <div class="map-right">
+      <div class="map-streak"><span>🔥</span><span id="map-streak">0</span></div>
+      <div class="map-stars"><span>⭐</span><span id="map-sc">0</span></div>
+      <button class="btn-icon" id="btn-add-prof" title="Aggiungi giocatore">➕</button>
+      <button class="btn-icon" id="btn-ms">📊</button>
+      <button class="btn-icon" id="btn-mt">👩‍🏫</button>
+    </div>
+  </div>
+  <div class="map-scroll">
+    <!-- Legacy game buttons hidden — game selection now via s-games screen -->
+    <button class="map-slide-btn" id="btn-slide-map" style="display:none">
+      🔢 <span>Rompicapo — Rimetti in ordine!</span>
+    </button>
+    <button class="map-nono-btn" id="btn-nono-map" style="display:none">
+      🔲 <span>Nonogramma — Scopri il disegno!</span>
+    </button>
+    <button class="map-maze-btn" id="btn-maze-map" style="display:none">
+      🐾 <span>Labirinto — Trova il cagnolino!</span>
+    </button>
+    <button class="map-tang-btn" id="btn-tang-map" style="display:none">
+      🔷 <span>Tangram — Incastra le forme</span>
+    </button>
+    <button class="map-kk-btn" id="btn-kk-map" style="display:none">
+      🔢 <span>KenKen — Il calcolo logico</span>
+      <span style="font-size:11px;opacity:.8">Novità!</span>
+    </button>
+    <button class="map-daily-btn map-daily-pulse" id="btn-daily-map">
+      <div class="daily-dot"></div>
+      <span>⭐ Sfida del Giorno</span>
+      <span id="daily-map-status" style="font-size:11px;opacity:.85"></span>
+    </button>
+    <div class="map-title">🗺️ Scegli un mondo</div>
+    <div id="world-list"></div>
+  </div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="screen" id="s-stats">
+  <div class="stats-hdr">
+    <button class="btn-back" id="btn-sb">←</button>
+    <h1 style="font-family:'Fredoka One',cursive;font-size:22px;color:#fff;flex:1;">📊 Le tue statistiche</h1>
+  </div>
+  <div class="stats-scroll" id="stats-scroll"></div>
+</div>
+
+<!-- ═══ GAME ═══ -->
+<div class="screen" id="s-game">
+  <div class="game-hdr">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-gb">←</button>
+      <span class="hdr-av" id="hdr-av">🦊</span>
+      <span class="hdr-nm" id="hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill" id="hdr-game-badge">🔢 Sudoku</div>
+    <div class="hdr-r">
+      <div class="hdr-streak"><span>🔥</span><span id="hdr-stk">0</span></div>
+      <div class="hdr-stars"><span>⭐</span><span id="hdr-sc">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon" id="pill-icon">🌈</span>
+      <span class="pill-nm" id="pill-nm">Foresta</span>
+    </div>
+    <span class="pill-pg" id="pill-pg">Puzzle 1</span>
+    <div class="game-timer" id="game-timer" style="display:none">⏱ 0s</div>
+    <div class="adapt-badge adapt-easy" id="adapt-badge" style="display:none">🟢 Facile</div>
+    <button class="rules-btn" id="btn-rules" onclick="if(typeof forceShowGameTutorial==='function')forceShowGameTutorial()">?</button>
+  </div>
+  <div class="game-body">
+    <div class="sudoku-wrap">
+      <div class="sudoku-grid g4" id="sudoku-grid"></div>
+    </div>
+    <div class="sym-palette" id="sym-palette"></div>
+    <div class="game-controls">
+      <button class="ctrl-btn" id="sound-btn">🔊</button>
+      <button class="ctrl-btn" id="erase-btn">🧹</button>
+      <button class="hint-btn" id="hint-btn">💡 <span id="hint-lbl">Aiuto (3)</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ REPLAY ═══ -->
+<div class="rep-overlay" id="rep-ov">
+  <div class="rep-title">🎬 Ecco come si risolve!</div>
+  <div class="rep-sub">Guarda il ragionamento passo dopo passo</div>
+  <div class="rep-wrap"><div class="rep-grid rg4" id="rep-grid"></div></div>
+  <div class="rep-step" id="rep-step"></div>
+  <button class="btn-rep-skip" id="rep-skip">Continua →</button>
+</div>
+
+<!-- ═══ CELEBRATION ═══ -->
+<div class="overlay" id="cel-ov">
+  <div class="cel-card">
+    <div class="cel-em" id="cel-em">🎉</div>
+    <div class="cel-title" id="cel-title">Fantastico!</div>
+    <div class="cel-sub" id="cel-sub">Puzzle completato!</div>
+    <div class="cel-stars" id="cel-stars">⭐ +3 stelle!</div>
+    <div class="cel-badge" id="cel-badge" style="display:none">
+      <span class="cel-badge-em" id="cel-b-em">🏅</span>
+      <div>
+        <div class="cel-badge-txt" id="cel-b-txt">Nuovo badge!</div>
+        <div class="cel-badge-sub" id="cel-b-sub">Hai sbloccato un premio</div>
+      </div>
+    </div>
+    <div class="cel-btns">
+      <button class="btn-theme-switch" id="btn-theme-switch">🎨 <span id="theme-switch-lbl">Cambia stile simboli</span></button>
+      <button class="btn-replay" id="btn-rep">🎬 Rivedi la soluzione</button>
+      <button class="btn-next" id="btn-next">Avanti! →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ THEME SWITCHER SHEET ═══ -->
+<div class="sheet-mask" id="sheet-mask">
+  <div class="sheet" id="theme-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">🎨 Scegli lo stile dei simboli</div>
+    <div class="sheet-grid" id="sheet-grid"></div>
+    <button class="sheet-confirm" id="sheet-confirm">Conferma ✓</button>
+  </div>
+</div>
+
+<!-- ═══ DAILY CHALLENGE ═══ -->
+<div class="screen" id="s-daily">
+  <div class="daily-hdr">
+    <button class="btn-back" id="btn-daily-back">←</button>
+    <h1>⭐ Sfida del Giorno</h1>
+  </div>
+  <div class="daily-scroll" id="daily-scroll"></div>
+</div>
+
+<!-- ═══ WORLD UNLOCK ═══ -->
+<div class="world-unlock-overlay" id="wuo">
+  <div class="wuo-burst" id="wuo-icon">🌟</div>
+  <div class="wuo-title">Nuovo mondo sbloccato!</div>
+  <div class="wuo-name" id="wuo-name">Valle delle Stelle</div>
+  <div class="wuo-desc" id="wuo-desc">Griglia 4×4 · Facile</div>
+  <button class="btn-wuo" id="btn-wuo">Fantastico! 🎉</button>
+</div>
+
+<!-- ═══ SLIDING PUZZLE ═══ -->
+<div class="screen" id="s-slide">
+  <div class="game-hdr game-sub-hdr" id="slide-hdr-bar">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-slide-back">←</button>
+      <span class="hdr-av" id="slide-hdr-av">🦊</span>
+      <span class="hdr-nm" id="slide-hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill">🧩 Rompicapo</div>
+    <div class="hdr-r">
+      <div class="hdr-stars"><span>⭐</span><span id="slide-stars">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon" id="slide-pill-icon">🧩</span>
+      <span class="pill-nm" id="slide-pill-nm">Livello 1</span>
+    </div>
+    <span class="pill-pg" id="slide-pill-pg">3×3 · 8 mosse</span>
+    <div class="game-metric-pill">👆 <span id="slide-moves">0</span> mosse</div>
+  </div>
+  <div class="slide-body">
+    <!-- Main grid -->
+    <div class="slide-grid-wrap" id="slide-grid-wrap">
+      <div class="slide-grid slide-g3" id="slide-grid"></div>
+      <div class="slide-win" id="slide-win">
+        <div class="slide-win-em">🎉</div>
+        <div class="slide-win-title" id="slide-win-title">Risolto!</div>
+        <div class="slide-win-moves"  id="slide-win-moves"></div>
+        <div class="slide-win-stars"  id="slide-win-stars">⭐ +3</div>
+        <button class="slide-win-next" id="slide-win-next">Avanti! →</button>
+      </div>
+    </div>
+
+    <!-- Preview of solution -->
+    <div class="slide-bottom-counter" id="slide-bottom-counter"></div>
+    <div class="slide-preview-row" id="slide-preview-row">
+      <div>
+        <div class="slide-preview-label">Obiettivo 🎯</div>
+        <div class="slide-preview-grid slide-g3" id="slide-preview"></div>
+      </div>
+    </div>
+
+    <div class="slide-controls">
+      <button class="slide-ctrl" id="slide-reset-btn">↺ Ricomincia</button>
+      <button class="slide-ctrl" id="slide-hint-btn">💡 Aiuto</button>
+      <button class="slide-ctrl primary" id="slide-new-btn">🔀 Nuovo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CLOCK ═══ -->
+<div class="screen" id="s-clock">
+  <div class="game-hdr game-sub-hdr" id="clock-hdr-bar">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-clock-back">←</button>
+      <span class="hdr-av" id="clock-hdr-av">🦊</span>
+      <span class="hdr-nm" id="clock-hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill">🕐 Orologio</div>
+    <div class="hdr-r">
+      <div class="hdr-stars"><span>⭐</span><span id="clock-stars">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon">🕐</span>
+      <span class="pill-nm" id="clock-mode-label">Imposta l'ora</span>
+    </div>
+    <span class="pill-pg" id="clock-diff-label">Ore intere</span>
+    <div class="game-metric-pill">✅ <span id="clock-score">0</span> / <span id="clock-total">0</span></div>
+  </div>
+  <div class="clock-body">
+    <div class="clock-prompt" id="clock-prompt">08:00</div>
+    <div class="clock-canvas-wrap" id="clock-canvas-wrap">
+      <canvas id="clock-canvas" width="280" height="280"></canvas>
+    </div>
+    <button class="clock-check-btn" id="clock-check-btn">✓ Controlla!</button>
+    <div class="clock-feedback" id="clock-feedback"></div>
+    <div class="clock-controls">
+      <button class="maze-ctrl" id="clock-new-btn">→ Prossima</button>
+      <button class="maze-ctrl" id="clock-diff-btn">⚙ Difficoltà</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TRIS ═══ -->
+<div class="screen" id="s-tris">
+  <div class="game-hdr game-sub-hdr" id="tris-hdr-bar">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-tris-back">←</button>
+      <span class="hdr-av" id="tris-hdr-av">🦊</span>
+      <span class="hdr-nm" id="tris-hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill">❌ Tris</div>
+    <div class="hdr-r">
+      <div class="hdr-stars"><span>⭐</span><span id="tris-stars">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon">❌</span>
+      <span class="pill-nm" id="tris-diff-label">Facile</span>
+    </div>
+    <span class="pill-pg" id="tris-score-label">Vittorie: 0</span>
+  </div>
+  <div class="tris-body">
+    <div class="tris-status" id="tris-status">Il tuo turno!</div>
+    <div class="tris-grid" id="tris-grid"></div>
+    <div class="tris-scoreboard">
+      <div class="tris-sb-item"><span id="tris-wins">0</span><br><small>Vittorie</small></div>
+      <div class="tris-sb-item"><span id="tris-draws">0</span><br><small>Pareggi</small></div>
+      <div class="tris-sb-item"><span id="tris-losses">0</span><br><small>Sconfitte</small></div>
+    </div>
+    <div class="clock-controls">
+      <button class="maze-ctrl" id="tris-new-btn">🔄 Nuova partita</button>
+      <button class="maze-ctrl" id="tris-diff-toggle">⚙ Difficoltà</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DAMA ═══ -->
+<div class="screen" id="s-dama">
+  <div class="game-hdr game-sub-hdr" id="dama-hdr-bar">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-dama-back">←</button>
+      <span class="hdr-av" id="dama-hdr-av">🦊</span>
+      <span class="hdr-nm" id="dama-hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill">⚫ Mini Dama</div>
+    <div class="hdr-r">
+      <div class="hdr-stars"><span>⭐</span><span id="dama-stars">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon">⚫</span>
+      <span class="pill-nm" id="dama-diff-label">Facile</span>
+    </div>
+    <span class="pill-pg" id="dama-score-label">6×6</span>
+    <div class="game-metric-pill" id="dama-turn-pill">Il tuo turno</div>
+  </div>
+  <div class="dama-body">
+    <div class="dama-status" id="dama-status">Seleziona una pedina</div>
+    <div class="dama-board-wrap" id="dama-board-wrap">
+      <div class="dama-board" id="dama-board"></div>
+    </div>
+    <div class="dama-captured">
+      <span id="dama-captured-player"></span>
+      <span id="dama-captured-ai"></span>
+    </div>
+    <div class="clock-controls">
+      <button class="maze-ctrl" id="dama-new-btn">🔄 Nuova partita</button>
+      <button class="maze-ctrl" id="dama-diff-toggle">⚙ Difficoltà</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NONOGRAM ═══ -->
+<div class="screen" id="s-nono">
+  <div class="game-hdr game-sub-hdr" id="nono-hdr-bar">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-nono-back">←</button>
+      <span class="hdr-av" id="nono-hdr-av">🦊</span>
+      <span class="hdr-nm" id="nono-hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill">🔲 Nonogramma</div>
+    <div class="hdr-r">
+      <div class="hdr-stars"><span>⭐</span><span id="nono-stars">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon" id="nono-pill-icon">🔲</span>
+      <span class="pill-nm" id="nono-pill-nm">Cuore</span>
+    </div>
+    <span class="pill-pg" id="nono-pill-pg">5×5 · Livello 1</span>
+    <div class="game-metric-pill">❌ <span id="nono-errors">0</span> errori</div>
+  </div>
+  <div class="nono-body">
+
+    <!-- Mode toggle: fill or mark -->
+    <div class="nono-mode-row">
+      <button class="nono-mode-btn active" id="nono-mode-fill">🖌️ Colora</button>
+      <button class="nono-mode-btn"        id="nono-mode-mark">❌ Vuoto</button>
+    </div>
+
+    <!-- Grid container — built by JS -->
+    <div class="nono-grid-wrap" id="nono-grid-wrap">
+      <div class="nono-grid-outer" id="nono-grid-outer"></div>
+      <div class="nono-win" id="nono-win">
+        <div class="nono-win-em"    id="nono-win-em">🎉</div>
+        <div class="nono-win-title" id="nono-win-title">Fantastico!</div>
+        <div class="nono-win-stars" id="nono-win-stars">⭐ +3</div>
+        <button class="nono-win-next" id="nono-win-next">Avanti! →</button>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="maze-controls" style="margin-top:2px;">
+      <button class="maze-ctrl" id="nono-undo-btn">↩ Annulla</button>
+      <button class="hint-btn" id="nono-hint-btn">💡 <span id="nono-hint-lbl">Aiuto (3)</span></button>
+      <button class="maze-ctrl" id="nono-reset-btn">↺ Ricomincia</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ MAZE ═══ -->
+<div class="screen" id="s-maze">
+  <div class="game-hdr game-sub-hdr" id="maze-hdr-bar">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-maze-back">←</button>
+      <span class="hdr-av" id="maze-hdr-av">🦊</span>
+      <span class="hdr-nm" id="maze-hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill">🐾 Labirinto</div>
+    <div class="hdr-r">
+      <div class="hdr-streak"><span>🔥</span><span id="maze-hdr-stk">0</span></div>
+      <div class="hdr-stars"><span>⭐</span><span id="maze-stars">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon" id="maze-pill-icon">🌿</span>
+      <span class="pill-nm" id="maze-pill-nm">Il Giardino</span>
+    </div>
+    <span class="pill-pg" id="maze-pill-pg">Livello 1</span>
+    <div class="game-metric-pill">👣 <span id="maze-steps">0</span> passi</div>
+  </div>
+  <div class="maze-body">
+
+    <div class="maze-canvas-wrap" id="maze-canvas-wrap">
+      <canvas id="maze-canvas"></canvas>
+      <div class="maze-win" id="maze-win">
+        <div class="maze-win-em">🐶</div>
+        <div class="maze-win-title" id="maze-win-title">Ce l'hai fatta!</div>
+        <div class="maze-win-steps" id="maze-win-steps"></div>
+        <div class="maze-win-stars" id="maze-win-stars">⭐ +3</div>
+        <button class="maze-win-next" id="maze-win-next">Avanti! →</button>
+      </div>
+    </div>
+
+    <!-- D-pad -->
+    <div class="maze-dpad" id="maze-dpad">
+      <button class="maze-btn up"    id="mz-up"   >⬆️</button>
+      <button class="maze-btn left"  id="mz-left" >⬅️</button>
+      <button class="maze-btn right" id="mz-right">➡️</button>
+      <button class="maze-btn down"  id="mz-down" >⬇️</button>
+    </div>
+
+    <div class="maze-controls">
+      <button class="maze-ctrl" id="maze-reset-btn">↺ Ricomincia</button>
+      <button class="hint-btn" id="maze-hint-btn">💡 <span id="maze-hint-lbl">Aiuto (3)</span></button>
+      <button class="maze-ctrl" id="maze-new-btn"  >🔀 Nuovo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TANGRAM ═══ -->
+<div class="screen" id="s-tang">
+  <div class="game-hdr game-sub-hdr" id="tang-hdr-bar">
+    <div class="hdr-l">
+      <button class="btn-back" id="btn-tang-back">←</button>
+      <span class="hdr-av" id="tang-hdr-av">🦊</span>
+      <span class="hdr-nm" id="tang-hdr-nm">Ciao</span>
+    </div>
+    <div class="hdr-game-pill">🔷 Tangram</div>
+    <div class="hdr-r">
+      <div class="hdr-stars"><span>⭐</span><span id="tang-stars">0</span></div>
+    </div>
+  </div>
+  <div class="game-info-bar">
+    <div class="world-pill">
+      <span class="pill-icon" id="tang-cat-icon">🏠</span>
+      <span class="pill-nm" id="tang-level-nm">Casa</span>
+    </div>
+    <span class="pill-pg" id="tang-level-pg">Livello 1</span>
+    <button class="hint-btn" id="tang-hint-btn">💡 <span id="tang-hint-lbl">Aiuto (2)</span></button>
+  </div>
+  <div class="tang-body">
+    <!-- SVG arena: sized by JS -->
+    <div class="tang-arena" id="tang-arena">
+      <svg id="tang-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="tang-complete" id="tang-complete">
+        <div class="tang-complete-em" id="tang-cel-em">🎉</div>
+        <div class="tang-complete-title" id="tang-cel-title">Perfetto!</div>
+        <div class="tang-complete-stars" id="tang-cel-stars">⭐ +3</div>
+        <button class="tang-next-btn" id="tang-next-btn">Avanti! →</button>
+      </div>
+    </div>
+    <!-- Piece tray -->
+    <div class="tang-tray" id="tang-tray"></div>
+    <div class="tang-controls">
+      <button class="tang-ctrl" id="tang-reset-btn">↺ Ricomincia</button>
+      <div style="font-size:12px;font-weight:800;color:var(--muted);text-align:center;">
+        Tocca 2 volte un pezzo per ruotarlo ↻
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ KENKEN INTRO ═══ -->
+<div class="kk-intro" id="kk-intro">
+  <div class="kk-intro-card">
+    <div class="kk-intro-em">🔢</div>
+    <div class="kk-intro-title">KenKen!</div>
+    <div class="kk-intro-body">
+      Ogni riga e colonna deve avere ogni numero una sola volta,
+      <b>come il sudoku</b> — ma in più, ogni gruppo colorato ha
+      un <b>numero obiettivo</b> e un'<b>operazione</b>.<br><br>
+      Esempio: <b>6+</b> significa che le celle del gruppo sommano a 6.
+    </div>
+    <!-- mini example grid 3x3 -->
+    <div class="kk-example" id="kk-example-grid"></div>
+    <div class="kk-intro-body" style="margin-bottom:12px;">Scegli la difficoltà:</div>
+    <div class="kk-diff-row">
+      <button class="kk-diff-btn sel" data-diff="easy">🌱<br>Facile<br><span style="font-size:10px;color:var(--muted)">Solo +</span></button>
+      <button class="kk-diff-btn" data-diff="medium">🎯<br>Medio<br><span style="font-size:10px;color:var(--muted)">+ e ×</span></button>
+      <button class="kk-diff-btn" data-diff="hard">🔥<br>Difficile<br><span style="font-size:10px;color:var(--muted)">Tutte</span></button>
+    </div>
+    <div class="kk-diff-row" style="margin-bottom:16px;">
+      <button class="kk-diff-btn sel" data-size="4" id="kk-sz4">4×4</button>
+      <button class="kk-diff-btn" data-size="6" id="kk-sz6">6×6</button>
+    </div>
+    <button class="btn-kk-start" id="btn-kk-start">Inizia! 🚀</button>
+  </div>
+</div>
+
+<!-- ═══ TEACHER ═══ -->
+<div class="screen" id="s-tea">
+  <div class="tea-hdr">
+    <button class="btn-tb" id="btn-tea-back">← Indietro</button>
+    <h1>👩‍🏫 Area Insegnanti</h1>
+  </div>
+  <div class="tea-scroll" id="tea-scroll"></div>
+</div>
+
+
+  <script src="js/core/state.js"></script>
+  <script src="js/core/audio.js"></script>
+  <script src="js/core/ui.js"></script>
+  <script src="js/screens/welcome.js"></script>
+  <script src="js/screens/who.js"></script>
+  <script src="js/screens/profile.js"></script>
+  <script src="js/screens/tutorial.js"></script>
+  <script src="js/screens/map.js"></script>
+  <script src="js/screens/stats.js"></script>
+  <script src="js/screens/game.js"></script>
+  <script src="js/screens/theme_sheet.js"></script>
+  <script src="js/screens/daily.js"></script>
+  <script src="js/screens/teacher.js"></script>
+  <script src="js/games/sudoku.js"></script>
+  <script src="js/games/kenken.js"></script>
+  <script src="js/games/tangram.js"></script>
+  <script src="js/games/maze.js"></script>
+  <script src="js/games/nonogram.js"></script>
+  <script src="js/games/sliding.js"></script>
+  <script src="js/games/clock.js"></script>
+  <script src="js/games/tris.js"></script>
+  <script src="js/games/dama.js"></script>
+  <script src="js/games/world-deco.js"></script>
+  <script src="js/games/themes.js"></script>
+  <script src="js/core/init.js"></script>
+</body>
+</html>

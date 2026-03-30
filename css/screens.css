@@ -1,0 +1,944 @@
+/* ══════════════════════════════════════════
+   WELCOME
+══════════════════════════════════════════ */
+#s-wel{justify-content:center;gap:26px;padding:40px 24px;
+  background:linear-gradient(155deg,var(--bg) 0%,var(--bg2) 100%);}
+.logo{font-family:'Fredoka One',cursive;font-size:clamp(54px,14vw,90px);
+  background:linear-gradient(135deg,#FF6B9D,#C040F0,#4DC3FF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 5px 16px rgba(200,64,240,.3));
+  animation:lpulse 3s ease-in-out infinite;line-height:1;}
+@keyframes lpulse{0%,100%{filter:drop-shadow(0 5px 16px rgba(200,64,240,.28));}50%{filter:drop-shadow(0 8px 28px rgba(200,64,240,.5));}}
+.logo-tag{font-size:15px;font-weight:800;color:var(--muted);letter-spacing:.8px;margin-top:4px;text-align:center;}
+.preview-grid{display:grid;grid-template-columns:repeat(4,50px);gap:6px;
+  padding:16px;background:var(--card);border-radius:20px;
+  box-shadow:0 10px 36px var(--sh);animation:float 3.5s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+.pc{width:50px;height:50px;border-radius:12px;box-shadow:0 3px 9px rgba(0,0,0,.14);}
+.pc.blank{background:var(--soft);box-shadow:inset 0 2px 7px rgba(0,0,0,.07);}
+.btn-big{background:linear-gradient(135deg,var(--accent),var(--a2));color:#fff;border:none;
+  border-radius:30px;padding:18px 50px;font-family:'Fredoka One',cursive;font-size:25px;
+  cursor:pointer;box-shadow:0 9px 26px var(--sh);transition:transform .14s,box-shadow .14s;
+  width:min(340px,88%);letter-spacing:.4px;}
+.btn-big:active{transform:scale(.96);}
+.btn-sec{background:transparent;border:2.5px solid var(--muted);border-radius:20px;
+  padding:9px 22px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s;}
+.btn-sec:hover,.btn-sec:active{border-color:var(--accent);color:var(--accent);}
+
+/* ══════════════════════════════════════════
+   PROFILE
+══════════════════════════════════════════ */
+#s-pro{gap:0;padding:0 0 48px;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 200px);align-items:stretch;}
+.pro-hero{background:linear-gradient(135deg,var(--accent),var(--a2));padding:30px 24px 44px;
+  text-align:center;border-radius:0 0 38px 38px;box-shadow:0 8px 30px var(--sh);margin-bottom:22px;}
+.pro-hero h1{font-family:'Fredoka One',cursive;font-size:28px;color:#fff;margin-bottom:3px;}
+.pro-hero p{color:rgba(255,255,255,.75);font-size:14px;font-weight:700;}
+.pro-body{display:flex;flex-direction:column;align-items:center;gap:22px;padding:0 20px;}
+.sec-lbl{font-size:16px;font-weight:900;color:var(--text);margin-bottom:9px;display:block;text-align:center;}
+.av-row{display:flex;gap:11px;flex-wrap:wrap;justify-content:center;}
+.av-btn{width:66px;height:66px;border-radius:50%;border:3px solid transparent;background:var(--card);
+  font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.09);transition:transform .14s,border-color .18s;}
+.av-btn.sel{border-color:var(--accent);box-shadow:0 4px 18px var(--sh);transform:scale(1.11);}
+.av-btn:active{transform:scale(.9);}
+.name-box{width:100%;max-width:340px;}
+.name-inp{width:100%;border:3px solid var(--soft);border-radius:16px;padding:14px 18px;
+  font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;color:var(--text);
+  background:var(--card);outline:none;text-align:center;transition:border-color .2s,box-shadow .2s;}
+.name-inp:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 14%,transparent);}
+.pal-grid,.sym-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;width:100%;max-width:400px;}
+.pal-card,.sym-card{background:var(--card);border-radius:18px;padding:13px 11px;cursor:pointer;
+  border:3px solid transparent;box-shadow:0 4px 14px rgba(0,0,0,.07);
+  transition:transform .14s,border-color .18s,box-shadow .18s;
+  display:flex;flex-direction:column;align-items:center;gap:8px;}
+.pal-card.sel,.sym-card.sel{border-color:var(--accent);box-shadow:0 5px 20px var(--sh);transform:scale(1.04);}
+.pal-card:active,.sym-card:active{transform:scale(.97);}
+.pal-dots{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+.pal-dot{width:25px;height:25px;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.16);}
+.pal-name,.sym-name{font-family:'Fredoka One',cursive;font-size:16px;color:var(--text);}
+.sym-preview{display:flex;gap:5px;font-size:26px;}
+.btn-confirm{background:linear-gradient(135deg,var(--accent),var(--a2));color:#fff;border:none;
+  border-radius:26px;padding:16px 46px;font-family:'Fredoka One',cursive;font-size:22px;
+  cursor:pointer;box-shadow:0 7px 22px var(--sh);transition:transform .14s,opacity .2s;width:min(320px,88%);}
+.btn-confirm:disabled{opacity:.3;cursor:not-allowed;}
+.btn-confirm:not(:disabled):active{transform:scale(.96);}
+
+/* ══════════════════════════════════════════
+   TUTORIAL
+══════════════════════════════════════════ */
+#s-tut{justify-content:flex-start;gap:0;background:linear-gradient(155deg,var(--bg) 0%,var(--bg2) 100%);}
+.tut-progress{width:100%;padding:20px 24px 0;display:flex;gap:6px;}
+.tut-dot{flex:1;height:6px;border-radius:6px;background:var(--soft);transition:background .3s;}
+.tut-dot.done{background:var(--accent);}
+.tut-slide{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;gap:20px;text-align:center;
+  opacity:0;transform:translateX(30px);
+  transition:opacity .35s,transform .35s;
+}
+.tut-slide.show{opacity:1;transform:translateX(0);}
+.tut-em{font-size:72px;animation:float 2.5s ease-in-out infinite;}
+.tut-title{font-family:'Fredoka One',cursive;font-size:26px;color:var(--text);}
+.tut-desc{font-size:16px;font-weight:700;color:var(--muted);line-height:1.6;max-width:340px;}
+.tut-demo{background:var(--card);border-radius:20px;padding:14px;
+  box-shadow:0 8px 28px var(--sh);display:inline-block;}
+.tut-grid{display:grid;grid-template-columns:repeat(4,54px);grid-template-rows:repeat(4,54px);gap:6px;}
+.tut-cell{width:54px;height:54px;border-radius:13px;display:flex;align-items:center;
+  justify-content:center;font-size:24px;box-shadow:0 3px 10px rgba(0,0,0,.13);}
+.tut-cell.empty{background:var(--soft);border:2.5px dashed color-mix(in srgb,var(--accent) 32%,transparent);}
+.tut-cell.pulse{animation:tutPulse 1s ease infinite;}
+@keyframes tutPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 var(--sh);}50%{transform:scale(1.1);box-shadow:0 0 0 8px transparent;}}
+.tut-arrow{font-size:36px;animation:bounce2 0.8s ease infinite alternate;}
+@keyframes bounce2{from{transform:translateY(0);}to{transform:translateY(-8px);}}
+.tut-nav{display:flex;gap:12px;width:100%;max-width:360px;}
+.btn-tut{flex:1;border:none;border-radius:20px;padding:15px;font-family:'Fredoka One',cursive;
+  font-size:19px;cursor:pointer;transition:transform .14s;}
+.btn-tut.primary{background:linear-gradient(135deg,var(--accent),var(--a2));color:#fff;box-shadow:0 6px 18px var(--sh);}
+.btn-tut.secondary{background:var(--soft);color:var(--muted);}
+.btn-tut:active{transform:scale(.95);}
+
+/* ══════════════════════════════════════════
+   MAP
+══════════════════════════════════════════ */
+#s-map{gap:0;background:var(--bg);align-items:stretch;}
+.map-hdr{background:linear-gradient(135deg,var(--accent),var(--a2));
+  padding:16px 18px 24px;display:flex;align-items:center;justify-content:space-between;
+  border-radius:0 0 30px 30px;box-shadow:0 5px 22px var(--sh);margin-bottom:16px;}
+.map-user{display:flex;align-items:center;gap:9px;}
+.map-av{font-size:28px;}
+.map-greet{font-family:'Fredoka One',cursive;font-size:18px;color:#fff;}
+.map-right{display:flex;align-items:center;gap:8px;}
+.map-stars{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.2);border-radius:16px;padding:5px 12px;}
+.map-stars span{font-family:'Fredoka One',cursive;font-size:17px;color:#fff;}
+.map-streak{display:flex;align-items:center;gap:3px;background:rgba(255,200,0,.25);border-radius:16px;padding:5px 10px;}
+.map-streak span{font-family:'Fredoka One',cursive;font-size:16px;color:#fff;}
+.btn-icon{background:rgba(255,255,255,.2);border:none;border-radius:14px;padding:7px 10px;
+  font-size:17px;cursor:pointer;transition:background .2s;}
+.btn-icon:hover{background:rgba(255,255,255,.35);}
+.map-scroll{flex:1;overflow-y:auto;padding:0 16px 40px;}
+.map-title{font-family:'Fredoka One',cursive;font-size:20px;color:var(--text);margin-bottom:12px;text-align:center;}
+
+.world-card{background:var(--card);border-radius:22px;padding:15px 16px;margin-bottom:11px;
+  display:flex;align-items:center;gap:13px;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);cursor:pointer;
+  transition:transform .14s,box-shadow .14s;border:2.5px solid transparent;position:relative;overflow:hidden;}
+.world-card.locked{opacity:.42;cursor:not-allowed;}
+.world-card.unlocked:active{transform:scale(.98);}
+.world-card.active-w{border-color:var(--accent);box-shadow:0 5px 22px var(--sh);}
+.world-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:linear-gradient(180deg,var(--accent),var(--a2));border-radius:5px 0 0 5px;}
+.world-lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.28);backdrop-filter:blur(2px);border-radius:20px;font-size:28px;}
+.world-icon{font-size:36px;flex-shrink:0;}
+.world-info{flex:1;}
+.world-name{font-family:'Fredoka One',cursive;font-size:18px;color:var(--text);}
+.world-desc{font-size:12px;font-weight:700;color:var(--muted);margin-top:2px;}
+.world-pbar{width:100%;height:7px;background:var(--soft);border-radius:7px;margin-top:7px;overflow:hidden;}
+.world-pfill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--accent),var(--a2));transition:width .4s;}
+.world-ptxt{font-size:11px;font-weight:700;color:var(--muted);margin-top:3px;}
+.world-done{background:linear-gradient(135deg,#f0a500,#e07000);color:#fff;
+  border-radius:10px;padding:3px 8px;font-family:'Fredoka One',cursive;font-size:12px;flex-shrink:0;}
+
+/* ══════════════════════════════════════════
+   STATS screen
+══════════════════════════════════════════ */
+#s-stats{gap:0;background:var(--bg);align-items:stretch;}
+.stats-hdr{background:linear-gradient(135deg,var(--accent),var(--a2));
+  padding:18px 18px 28px;display:flex;align-items:center;gap:10px;
+  border-radius:0 0 28px 28px;box-shadow:0 5px 20px var(--sh);margin-bottom:16px;}
+.stats-hdr h1{font-family:'Fredoka One',cursive;font-size:22px;color:#fff;flex:1;}
+.stats-scroll{flex:1;overflow-y:auto;padding:0 16px 40px;}
+.stat-section{margin-bottom:20px;}
+.stat-section h2{font-family:'Fredoka One',cursive;font-size:17px;color:var(--accent);margin-bottom:11px;}
+
+/* big stat cards */
+.big-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px;}
+.bsc{background:var(--card);border-radius:15px;padding:14px 8px;text-align:center;
+  box-shadow:0 3px 11px rgba(0,0,0,.06);}
+.bsc-num{font-family:'Fredoka One',cursive;font-size:28px;color:var(--accent);}
+.bsc-lbl{font-size:10px;font-weight:800;color:var(--muted);margin-top:1px;}
+
+/* streak calendar */
+.streak-row{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:16px;
+  padding:14px;box-shadow:0 3px 11px rgba(0,0,0,.06);margin-bottom:12px;}
+.streak-big{font-family:'Fredoka One',cursive;font-size:42px;color:var(--accent);line-height:1;}
+.streak-info{flex:1;}
+.streak-label{font-family:'Fredoka One',cursive;font-size:18px;color:var(--text);}
+.streak-sub{font-size:12px;font-weight:700;color:var(--muted);margin-top:2px;}
+.streak-days{display:flex;gap:5px;margin-top:8px;}
+.sday{width:28px;height:28px;border-radius:8px;background:var(--soft);
+  display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--muted);}
+.sday.on{background:linear-gradient(135deg,var(--accent),var(--a2));color:#fff;}
+.sday.today{box-shadow:0 0 0 2px var(--accent);}
+
+/* badge grid */
+.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.badge-card{background:var(--card);border-radius:16px;padding:14px 8px;text-align:center;
+  box-shadow:0 3px 11px rgba(0,0,0,.06);position:relative;}
+.badge-card.locked-badge{opacity:.35;filter:grayscale(1);}
+.badge-em{font-size:36px;display:block;margin-bottom:6px;}
+.badge-name{font-family:'Fredoka One',cursive;font-size:13px;color:var(--text);}
+.badge-desc{font-size:10px;font-weight:700;color:var(--muted);margin-top:2px;}
+.badge-new{position:absolute;top:6px;right:6px;background:#ff4444;color:#fff;
+  border-radius:8px;padding:2px 6px;font-size:9px;font-weight:900;}
+
+/* accuracy bar */
+.acc-bar-wrap{background:var(--card);border-radius:16px;padding:14px;
+  box-shadow:0 3px 11px rgba(0,0,0,.06);}
+.acc-label{display:flex;justify-content:space-between;margin-bottom:7px;}
+.acc-label span:first-child{font-size:14px;font-weight:800;color:var(--text);}
+.acc-label span:last-child{font-family:'Fredoka One',cursive;font-size:16px;color:var(--accent);}
+.acc-bar{height:12px;background:var(--soft);border-radius:12px;overflow:hidden;}
+.acc-fill{height:100%;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--a2));transition:width .8s;}
+
+/* ══════════════════════════════════════════
+   GAME
+══════════════════════════════════════════ */
+#s-game{background:var(--bg);gap:0;}
+.game-hdr{width:100%;background:linear-gradient(135deg,var(--accent),var(--a2));padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 4px 16px rgba(0,0,0,.12);flex-shrink:0;}
+.hdr-l{display:flex;align-items:center;gap:8px;}
+.btn-back{width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.2);
+  font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .14s;color:#fff;}
+.btn-back:active{transform:scale(.88);}
+.hdr-av{font-size:24px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
+.hdr-nm{font-family:'Fredoka One',cursive;font-size:17px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.15);}
+.hdr-game-pill{background:rgba(255,255,255,.22);border-radius:14px;padding:5px 14px;
+  font-family:'Fredoka One',cursive;font-size:14px;color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.15);letter-spacing:.3px;
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+.hdr-r{display:flex;align-items:center;gap:7px;}
+.hdr-stars{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.22);border-radius:14px;padding:4px 10px;backdrop-filter:blur(4px);}
+.hdr-stars span:last-child{font-family:'Fredoka One',cursive;font-size:16px;color:#fff;}
+.hdr-streak{display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.18);border-radius:14px;padding:4px 9px;backdrop-filter:blur(4px);}
+.hdr-streak span:last-child{font-family:'Fredoka One',cursive;font-size:15px;color:#fff;}
+
+/* Info bar below header */
+.game-info-bar{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:10px 16px;background:var(--bg2);border-bottom:1px solid color-mix(in srgb,var(--accent) 15%,transparent);}
+
+.game-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:10px 13px 12px;gap:13px;overflow:visible;
+  background:radial-gradient(ellipse at 50% 0%,color-mix(in srgb,var(--accent) 5%,var(--bg)),var(--bg) 70%);}
+
+.world-pill{background:var(--card);border-radius:16px;padding:5px 14px;
+  display:flex;align-items:center;gap:6px;box-shadow:0 3px 11px rgba(0,0,0,.06);}
+.pill-icon{font-size:17px;} .pill-nm{font-family:'Fredoka One',cursive;font-size:14px;color:var(--accent);}
+.pill-pg{font-size:12px;font-weight:800;color:var(--muted);background:var(--card);border-radius:10px;padding:3px 10px;}
+
+/* adaptive badge */
+.adapt-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:12px;padding:4px 10px;
+  font-size:11px;font-weight:900;letter-spacing:.3px;
+  animation:fadeSlide .4s ease;
+}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.adapt-easy{background:#d4f5d0;color:#1a6a1a;}
+.adapt-medium{background:#fff0c0;color:#7a5a00;}
+.adapt-hard{background:#ffd5d5;color:#8a0000;}
+
+/* GRID */
+.sudoku-wrap{background:var(--card);border-radius:22px;padding:12px;
+  box-shadow:0 8px 32px var(--sh);display:inline-block;position:relative;}
+.sudoku-grid{display:grid;gap:var(--gap);position:relative;}
+.g2{grid-template-columns:repeat(2,var(--c4));grid-template-rows:repeat(2,var(--c4));}
+.g3{grid-template-columns:repeat(3,var(--c4));grid-template-rows:repeat(3,var(--c4));}
+.g4{grid-template-columns:repeat(4,var(--c4));grid-template-rows:repeat(4,var(--c4));}
+.g6{grid-template-columns:repeat(6,var(--c6));grid-template-rows:repeat(6,var(--c6));}
+.g9{grid-template-columns:repeat(9,var(--c9));grid-template-rows:repeat(9,var(--c9));}
+.bsep-v,.bsep-h{position:absolute;background:color-mix(in srgb,var(--accent) 26%,transparent);border-radius:2px;z-index:2;pointer-events:none;}
+.bsep-v{top:0;bottom:0;width:3px;} .bsep-h{left:0;right:0;height:3px;}
+
+.cell{display:flex;align-items:center;justify-content:center;border-radius:var(--r);
+  font-size:27px;user-select:none;transition:transform .12s,box-shadow .12s;
+  position:relative;cursor:pointer;overflow:hidden;}
+.cell.empty{background:var(--soft);border:2.5px dashed color-mix(in srgb,var(--accent) 30%,transparent);
+  box-shadow:inset 0 2px 7px rgba(0,0,0,.06);}
+.cell.empty:active{transform:scale(.92);}
+.cell.empty.sel{border:3px solid var(--accent);
+  background:color-mix(in srgb,var(--accent) 10%,white);
+  box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 16%,transparent);
+  transform:scale(1.08);z-index:3;}
+.cell.given{box-shadow:0 3px 12px rgba(0,0,0,.17);cursor:default;}
+.cell.filled{box-shadow:0 3px 12px rgba(0,0,0,.14);}
+
+/* same row/col highlight */
+.cell.highlight{background:color-mix(in srgb,var(--accent) 6%,var(--soft))!important;}
+
+.cell.shake{animation:shake .38s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(7px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+.cell.pop{animation:pop .3s ease;}
+@keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.22);}100%{transform:scale(1);}}
+.cell.hint-glow{border:3px solid #ffd166!important;animation:hg 1.1s ease 3;}
+@keyframes hg{0%,100%{box-shadow:0 0 0 0 rgba(255,209,102,.7);}50%{box-shadow:0 0 0 10px rgba(255,209,102,0);}}
+/* KenKen conflict flash — red pulse on duplicate row/col cells */
+.cell.kk-conflict{animation:kkconf .9s ease;z-index:4;}
+@keyframes kkconf{0%{box-shadow:0 0 0 0 rgba(255,50,50,.8);}25%{box-shadow:0 0 0 8px rgba(255,50,50,.5);background:rgba(255,50,50,.35)!important;}50%{box-shadow:0 0 0 4px rgba(255,50,50,.3);}100%{box-shadow:none;}}
+.cell.replay-reveal{animation:rrev .35s ease forwards;}
+@keyframes rrev{0%{transform:scale(.6);opacity:0;}70%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
+
+/* floating +star animation */
+.float-star{
+  position:fixed;font-family:'Fredoka One',cursive;font-size:22px;font-weight:900;
+  color:#f0a500;pointer-events:none;z-index:400;
+  animation:floatUp 1.2s ease forwards;
+}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-70px) scale(1.4);}}
+
+.csym{width:100%;height:100%;display:flex;align-items:center;justify-content:center;border-radius:calc(var(--r) - 2px);}
+.csym.color{border-radius:calc(var(--r) - 2px);}
+.csym.shape{font-size:clamp(20px,4.2vw,30px);}
+.csym.animal{font-size:clamp(14px,3.5vw,28px);}
+.g9 .csym.shape,.g9 .csym.animal{font-size:clamp(12px,2.8vw,20px);}
+.g9 .csym.number{font-size:clamp(14px,3vw,22px);}
+.csym.number{font-family:'Fredoka One',cursive;font-size:clamp(22px,4.5vw,32px);color:#fff;text-shadow:0 2px 5px rgba(0,0,0,.2);}
+
+/* PALETTE */
+.sym-palette{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  background:var(--card);border-radius:20px;padding:12px 14px;box-shadow:0 3px 16px rgba(0,0,0,.06);}
+.sym-pick{width:54px;height:54px;border-radius:14px;border:3px solid transparent;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.13);transition:transform .11s,border-color .14s;font-size:24px;position:relative;}
+.sym-pick:active{transform:scale(.88);}
+.sym-pick.active{border-color:var(--text);transform:scale(1.15);box-shadow:0 5px 18px rgba(0,0,0,.22);}
+.sym-pick.active::after{content:'';position:absolute;inset:0;border-radius:11px;background:rgba(255,255,255,.2);}
+.sym-pick.disabled-sym{opacity:.3;cursor:not-allowed!important;}
+
+.game-controls{display:flex;gap:9px;align-items:center;}
+.hint-btn{display:flex;align-items:center;gap:6px;background:#fff8e0;border:2.5px solid #ffd166;
+  border-radius:20px;padding:8px 15px;font-family:'Fredoka One',cursive;font-size:16px;color:#c98000;
+  cursor:pointer;transition:transform .14s,opacity .2s;box-shadow:0 3px 12px rgba(240,165,0,.17);}
+.hint-btn:active{transform:scale(.94);}
+.hint-btn.off{opacity:.35;cursor:not-allowed;}
+.ctrl-btn{width:44px;height:44px;border-radius:50%;background:var(--soft);border:none;
+  font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);transition:transform .14s;}
+.ctrl-btn:active{transform:scale(.88);}
+
+/* ══════════════════════════════════════════
+   TUTORIAL TOOLTIP overlay (in-game)
+══════════════════════════════════════════ */
+.tut-tooltip{
+  position:fixed;z-index:500;
+  background:var(--text);color:#fff;border-radius:16px;padding:12px 16px;
+  font-size:14px;font-weight:700;max-width:240px;text-align:center;
+  box-shadow:0 8px 28px rgba(0,0,0,.3);
+  pointer-events:none;
+  animation:tooltipIn .3s ease;
+}
+@keyframes tooltipIn{from{opacity:0;transform:scale(.85);}to{opacity:1;transform:scale(1);}}
+.tut-tooltip::after{
+  content:'▼';position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);
+  font-size:16px;color:var(--text);
+}
+.tut-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:490;pointer-events:all;}
+.tut-hole{position:fixed;z-index:495;border-radius:var(--r);
+  box-shadow:0 0 0 9999px rgba(0,0,0,.45);pointer-events:none;}
+
+/* ══════════════════════════════════════════
+   OVERLAYS
+══════════════════════════════════════════ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;}
+.overlay.show{opacity:1;pointer-events:all;}
+.cel-card{background:var(--card);border-radius:34px;padding:36px 28px;text-align:center;
+  max-width:360px;width:90%;box-shadow:0 26px 68px rgba(0,0,0,.28);
+  transform:scale(.76);transition:transform .44s cubic-bezier(.34,1.56,.64,1);}
+.overlay.show .cel-card{transform:scale(1);}
+.cel-em{font-size:72px;animation:bcel .6s ease infinite alternate;}
+@keyframes bcel{from{transform:translateY(0);}to{transform:translateY(-13px);}}
+.cel-title{font-family:'Fredoka One',cursive;font-size:34px;margin:10px 0 4px;
+  background:linear-gradient(135deg,var(--accent),var(--a2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cel-sub{font-size:15px;font-weight:700;color:var(--muted);margin-bottom:16px;}
+.cel-stars{display:flex;align-items:center;justify-content:center;gap:7px;
+  background:#fff8e0;border-radius:14px;padding:9px 18px;margin-bottom:8px;
+  font-family:'Fredoka One',cursive;font-size:20px;color:#d49000;}
+.cel-badge{display:flex;align-items:center;gap:8px;background:var(--soft);
+  border-radius:14px;padding:10px 14px;margin-bottom:16px;border:2px solid var(--accent);}
+.cel-badge-em{font-size:28px;}
+.cel-badge-txt{font-family:'Fredoka One',cursive;font-size:15px;color:var(--accent);text-align:left;}
+.cel-badge-sub{font-size:11px;font-weight:700;color:var(--muted);}
+.cel-btns{display:flex;flex-direction:column;gap:9px;}
+.btn-replay{background:var(--soft);border:2.5px solid var(--accent);border-radius:16px;
+  padding:11px;font-family:'Fredoka One',cursive;font-size:17px;color:var(--accent);cursor:pointer;}
+.btn-replay:active{transform:scale(.96);}
+.btn-next{background:linear-gradient(135deg,var(--accent),var(--a2));color:#fff;border:none;
+  border-radius:16px;padding:14px;font-family:'Fredoka One',cursive;font-size:21px;
+  cursor:pointer;box-shadow:0 7px 22px var(--sh);}
+.btn-next:active{transform:scale(.96);}
+
+/* badge unlock overlay */
+.badge-unlock{position:fixed;top:80px;left:50%;transform:translateX(-50%);
+  background:var(--card);border-radius:20px;padding:14px 20px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:300;
+  animation:slideDown .4s cubic-bezier(.34,1.56,.64,1) forwards,fadeOut .4s ease 2.8s forwards;
+  min-width:260px;max-width:90vw;border:2px solid var(--accent);}
+@keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-30px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@keyframes fadeOut{from{opacity:1;}to{opacity:0;pointer-events:none;}}
+.bu-em{font-size:36px;}
+.bu-txt{flex:1;}
+.bu-title{font-family:'Fredoka One',cursive;font-size:16px;color:var(--accent);}
+.bu-sub{font-size:12px;font-weight:700;color:var(--muted);}
+
+/* REPLAY */
+.rep-overlay{position:fixed;inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  z-index:150;opacity:0;pointer-events:none;transition:opacity .3s;}
+.rep-overlay.show{opacity:1;pointer-events:all;}
+.rep-title{font-family:'Fredoka One',cursive;font-size:24px;color:#fff;text-align:center;}
+.rep-sub{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);text-align:center;}
+.rep-wrap{background:var(--card);border-radius:22px;padding:12px;box-shadow:0 12px 48px rgba(0,0,0,.35);}
+.rep-grid{display:grid;gap:var(--gap);}
+.rg4{grid-template-columns:repeat(4,var(--c4));grid-template-rows:repeat(4,var(--c4));}
+.rg6{grid-template-columns:repeat(6,var(--c6));grid-template-rows:repeat(6,var(--c6));}
+.rep-step{font-family:'Fredoka One',cursive;font-size:17px;color:rgba(255,255,255,.8);text-align:center;min-height:26px;}
+.btn-rep-skip{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:16px;
+  padding:9px 22px;font-family:'Fredoka One',cursive;font-size:16px;color:#fff;cursor:pointer;}
+
+/* TEACHER */
+#s-tea{background:var(--bg);gap:0;align-items:stretch;}
+.tea-hdr{background:linear-gradient(135deg,var(--accent),var(--a2));
+  padding:16px 18px 22px;display:flex;align-items:center;gap:10px;
+  border-radius:0 0 26px 26px;box-shadow:0 5px 20px var(--sh);margin-bottom:14px;}
+.tea-hdr h1{font-family:'Fredoka One',cursive;font-size:22px;color:#fff;flex:1;}
+.btn-tb{background:rgba(255,255,255,.2);border:none;border-radius:11px;padding:7px 13px;
+  font-family:'Fredoka One',cursive;font-size:15px;color:#fff;cursor:pointer;}
+.tea-scroll{flex:1;overflow-y:auto;padding:0 16px 40px;}
+.tea-sec{margin-bottom:20px;}
+.tea-sec h2{font-family:'Fredoka One',cursive;font-size:17px;color:var(--accent);margin-bottom:10px;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px;}
+.sc{background:var(--card);border-radius:14px;padding:13px 8px;text-align:center;box-shadow:0 3px 11px rgba(0,0,0,.06);}
+.sc-n{font-family:'Fredoka One',cursive;font-size:27px;color:var(--accent);}
+.sc-l{font-size:10px;font-weight:800;color:var(--muted);margin-top:1px;}
+.ptable{width:100%;border-collapse:separate;border-spacing:0 7px;}
+.ptable th{font-size:10px;font-weight:900;color:var(--muted);text-align:left;padding:0 9px 3px;letter-spacing:.4px;}
+.ptr{background:var(--card);box-shadow:0 2px 9px rgba(0,0,0,.05);}
+.ptr td{padding:10px 9px;font-size:13px;font-weight:700;color:var(--text);}
+.ptr td:first-child{border-radius:11px 0 0 11px;}
+.ptr td:last-child{border-radius:0 11px 11px 0;}
+.tag{border-radius:8px;padding:3px 7px;font-size:10px;font-weight:800;}
+.tag-ok{background:#d4f5d0;color:#1a6a1a;}
+.tag-med{background:#fff0c0;color:#7a5a00;}
+.tag-warn{background:#ffd5d5;color:#8a0000;}
+.tag-none{background:#e8e8e8;color:#666;}
+.wsbar{margin-bottom:9px;}
+.wsbar-lbl{font-size:12px;font-weight:800;color:var(--text);display:flex;justify-content:space-between;margin-bottom:3px;}
+.wsbar-track{height:9px;background:var(--soft);border-radius:9px;overflow:hidden;}
+.wsbar-fill{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--accent),var(--a2));}
+.hchart{display:flex;align-items:flex-end;gap:7px;height:72px;padding:0 3px;}
+.hbw{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.hb{width:100%;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--accent),var(--a2));}
+.hbl{font-size:9px;font-weight:800;color:var(--muted);}
+.hbv{font-size:10px;font-weight:900;color:var(--accent);}
+.alert-card{background:#fff3e0;border-radius:13px;padding:11px 14px;margin-bottom:7px;
+  display:flex;align-items:center;gap:9px;}
+.no-data{background:var(--card);border-radius:15px;padding:26px;text-align:center;box-shadow:0 3px 11px rgba(0,0,0,.06);}
+.no-data-em{font-size:42px;margin-bottom:8px;}
+.no-data p{font-size:13px;font-weight:700;color:var(--muted);}
+.btn-demo{margin:14px auto;display:block;background:var(--accent);color:#fff;border:none;
+  border-radius:15px;padding:11px 22px;font-family:'Fredoka One',cursive;font-size:16px;cursor:pointer;}
+
+/* confetti */
+.cfp{position:fixed;pointer-events:none;z-index:300;animation:cff 2.3s ease-in forwards;}
+@keyframes cff{0%{transform:translateY(-30px) rotate(0deg);opacity:1;}100%{transform:translateY(108vh) rotate(820deg);opacity:0;}}
+
+/* ══════════════════════════════════════════
+   WHO'S PLAYING — multi-profile screen
+══════════════════════════════════════════ */
+#s-who{
+  justify-content:flex-start;gap:0;
+  background:linear-gradient(155deg,var(--bg) 0%,var(--bg2) 100%);
+}
+.who-hero{
+  width:100%;
+  background:linear-gradient(135deg,var(--accent),var(--a2));
+  padding:28px 24px 36px;
+  border-radius:0 0 36px 36px;
+  box-shadow:0 6px 24px var(--sh);
+  text-align:center;
+  margin-bottom:24px;
+}
+.who-hero-logo{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(36px,9vw,56px);
+  background:linear-gradient(135deg,#fff 40%,rgba(255,255,255,.7));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:6px;
+}
+.who-hero-sub{font-size:15px;font-weight:800;color:rgba(255,255,255,.75);}
+
+.who-scroll{flex:1;overflow-y:auto;padding:0 18px 32px;width:100%;max-width:480px;}
+.who-label{font-family:'Fredoka One',cursive;font-size:18px;color:var(--text);
+  margin-bottom:14px;text-align:center;}
+
+/* profile grid */
+.profile-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  margin-bottom:16px;
+}
+.prof-card{
+  background:var(--card);border-radius:20px;padding:16px 10px 12px;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  cursor:pointer;border:3px solid transparent;
+  box-shadow:0 4px 16px rgba(0,0,0,.07);
+  transition:transform .14s,border-color .18s,box-shadow .18s;
+  position:relative;
+}
+.prof-card:active{transform:scale(.95);}
+.prof-card.active-prof{
+  border-color:var(--accent);
+  box-shadow:0 5px 22px var(--sh);
+  transform:scale(1.04);
+}
+.prof-av{font-size:38px;line-height:1;}
+.prof-name{font-family:'Fredoka One',cursive;font-size:14px;color:var(--text);
+  text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+.prof-stars{font-size:11px;font-weight:800;color:var(--muted);display:flex;align-items:center;gap:3px;}
+.prof-streak{
+  position:absolute;top:6px;right:6px;
+  background:#fff3d0;border-radius:9px;padding:2px 5px;
+  font-size:10px;font-weight:900;color:#d49000;
+}
+.prof-del{
+  position:absolute;top:5px;left:5px;
+  width:22px;height:22px;border-radius:50%;
+  background:#ffe0e0;border:none;font-size:12px;
+  display:none;align-items:center;justify-content:center;
+  cursor:pointer;color:#cc3333;
+  transition:background .15s;
+}
+.prof-card:hover .prof-del{display:flex;}
+.prof-del:active{background:#ffcccc;}
+
+/* add profile card */
+.prof-add{
+  background:var(--soft);border:2.5px dashed color-mix(in srgb,var(--accent) 40%,transparent);
+  border-radius:20px;padding:16px 10px 12px;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  cursor:pointer;transition:transform .14s,background .18s;
+}
+.prof-add:active{transform:scale(.95);}
+.prof-add-icon{font-size:32px;color:var(--accent);}
+.prof-add-lbl{font-family:'Fredoka One',cursive;font-size:13px;color:var(--accent);}
+
+.btn-who-play{
+  width:100%;background:linear-gradient(135deg,var(--accent),var(--a2));
+  color:#fff;border:none;border-radius:26px;padding:17px;
+  font-family:'Fredoka One',cursive;font-size:22px;
+  cursor:pointer;box-shadow:0 7px 22px var(--sh);
+  transition:transform .14s,opacity .2s;
+  margin-top:4px;
+}
+.btn-who-play:disabled{opacity:.3;cursor:not-allowed;}
+.btn-who-play:not(:disabled):active{transform:scale(.96);}
+
+/* edit mode toggle */
+.btn-who-edit{
+  display:block;margin:12px auto 0;
+  background:transparent;border:none;
+  font-size:13px;font-weight:800;color:var(--muted);cursor:pointer;
+  text-decoration:underline;
+}
+
+/* cambia giocatore pill — in map header */
+.map-switch-prof{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.35);
+  border-radius:20px;padding:5px 12px;cursor:pointer;
+  transition:background .2s;
+}
+.map-switch-prof:hover{background:rgba(255,255,255,.28);}
+.map-switch-prof span{font-family:'Fredoka One',cursive;font-size:14px;color:#fff;}
+
+/* ── THEME SWITCHER ── */
+.btn-theme-switch{
+  display:flex;align-items:center;gap:6px;
+  background:var(--soft);border:2.5px solid var(--accent);border-radius:20px;
+  padding:8px 15px;font-family:'Fredoka One',cursive;font-size:15px;color:var(--accent);
+  cursor:pointer;transition:transform .14s,box-shadow .14s;
+  box-shadow:0 3px 12px var(--sh);
+  width:100%;justify-content:center;
+}
+.btn-theme-switch:active{transform:scale(.96);}
+
+/* bottom sheet */
+.sheet-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:350;
+  opacity:0;pointer-events:none;transition:opacity .25s;}
+.sheet-mask.show{opacity:1;pointer-events:all;}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:360;
+  background:var(--card);border-radius:28px 28px 0 0;
+  padding:20px 20px 40px;
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.34,1.1,.64,1);
+  box-shadow:0 -8px 40px rgba(0,0,0,.18);}
+.sheet-mask.show .sheet{transform:translateY(0);}
+.sheet-handle{width:40px;height:5px;border-radius:5px;background:var(--soft);margin:0 auto 18px;}
+.sheet-title{font-family:'Fredoka One',cursive;font-size:20px;color:var(--text);
+  text-align:center;margin-bottom:16px;}
+.sheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.sheet-opt{
+  background:var(--soft);border:3px solid transparent;border-radius:18px;
+  padding:14px 10px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  transition:transform .14s,border-color .18s,box-shadow .18s;
+}
+.sheet-opt:active{transform:scale(.96);}
+.sheet-opt.active-theme{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,white);
+  box-shadow:0 4px 16px var(--sh);}
+.sheet-opt-preview{display:flex;gap:5px;font-size:26px;}
+.sheet-opt-name{font-family:'Fredoka One',cursive;font-size:15px;color:var(--text);}
+.sheet-opt-tag{font-size:11px;font-weight:800;color:var(--muted);}
+.sheet-confirm{
+  margin-top:16px;width:100%;background:linear-gradient(135deg,var(--accent),var(--a2));
+  color:#fff;border:none;border-radius:20px;padding:15px;
+  font-family:'Fredoka One',cursive;font-size:20px;cursor:pointer;
+  box-shadow:0 6px 20px var(--sh);transition:transform .14s;
+}
+.sheet-confirm:active{transform:scale(.96);}
+
+
+/* ══════════════════════════════════════════
+   DAILY CHALLENGE SCREEN
+══════════════════════════════════════════ */
+#s-daily{background:var(--bg);gap:0;align-items:stretch;}
+.daily-hdr{
+  background:linear-gradient(135deg,#f0a500,#e07000);
+  padding:18px 18px 28px;
+  border-radius:0 0 28px 28px;
+  box-shadow:0 5px 20px rgba(224,112,0,.25);
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.daily-hdr h1{font-family:'Fredoka One',cursive;font-size:22px;color:#fff;flex:1;}
+.daily-scroll{flex:1;overflow-y:auto;padding:0 18px 40px;}
+.daily-hero{
+  background:linear-gradient(135deg,#fff8e0,#fff3cc);
+  border-radius:22px;padding:22px 18px;margin-bottom:16px;
+  text-align:center;box-shadow:0 4px 18px rgba(224,112,0,.12);
+  border:2px solid #ffd166;
+}
+.daily-date{font-size:13px;font-weight:900;color:#c98000;margin-bottom:6px;letter-spacing:.5px;}
+.daily-title{font-family:'Fredoka One',cursive;font-size:26px;color:#2d1f35;margin-bottom:4px;}
+.daily-sub{font-size:14px;font-weight:700;color:#b08060;}
+.daily-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
+.daily-stat{background:white;border-radius:14px;padding:12px 8px;text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.06);}
+.daily-stat-n{font-family:'Fredoka One',cursive;font-size:24px;color:#f0a500;}
+.daily-stat-l{font-size:10px;font-weight:800;color:#b08060;}
+.daily-streak-row{
+  background:linear-gradient(135deg,#fff3d0,#ffe8a0);
+  border-radius:18px;padding:14px;margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+  border:2px solid #ffd166;
+}
+.daily-streak-num{font-family:'Fredoka One',cursive;font-size:42px;color:#e07000;line-height:1;}
+.daily-streak-info .daily-streak-label{font-family:'Fredoka One',cursive;font-size:18px;color:#2d1f35;}
+.daily-streak-info .daily-streak-sub{font-size:12px;font-weight:700;color:#b08060;margin-top:2px;}
+.daily-done-today{
+  background:linear-gradient(135deg,#d4f5d0,#b8f0b0);
+  border-radius:18px;padding:18px;text-align:center;
+  border:2px solid #4CAF50;margin-bottom:12px;
+}
+.daily-done-em{font-size:48px;margin-bottom:8px;}
+.daily-done-title{font-family:'Fredoka One',cursive;font-size:22px;color:#1a6a1a;}
+.daily-done-sub{font-size:14px;font-weight:700;color:#4a8a4a;margin-top:4px;}
+.btn-daily-play{
+  width:100%;background:linear-gradient(135deg,#f0a500,#e07000);
+  color:#fff;border:none;border-radius:22px;padding:17px;
+  font-family:'Fredoka One',cursive;font-size:22px;
+  cursor:pointer;box-shadow:0 7px 22px rgba(224,112,0,.3);
+  transition:transform .14s;margin-bottom:12px;
+}
+.btn-daily-play:active{transform:scale(.96);}
+.btn-daily-play:disabled{opacity:.45;cursor:not-allowed;}
+.daily-history{background:white;border-radius:18px;padding:14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);}
+.daily-history h3{font-family:'Fredoka One',cursive;font-size:16px;color:var(--accent);margin-bottom:10px;}
+.daily-hist-row{display:flex;align-items:center;gap:10px;padding:7px 0;
+  border-bottom:1px solid var(--soft);}
+.daily-hist-row:last-child{border-bottom:none;}
+.daily-hist-date{font-size:12px;font-weight:800;color:var(--muted);flex:1;}
+.daily-hist-res{font-family:'Fredoka One',cursive;font-size:14px;}
+
+/* ── WORLD UNLOCK ANIMATION ── */
+.world-unlock-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(16px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  z-index:400;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.world-unlock-overlay.show{opacity:1;pointer-events:all;}
+.wuo-burst{font-size:90px;animation:wuoBurst 0.6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes wuoBurst{0%{transform:scale(0) rotate(-20deg);opacity:0;}100%{transform:scale(1) rotate(0deg);opacity:1;}}
+.wuo-title{font-family:'Fredoka One',cursive;font-size:32px;color:#fff;text-align:center;
+  animation:wuoSlide .5s ease .3s both;}
+.wuo-name{font-family:'Fredoka One',cursive;font-size:22px;color:rgba(255,255,255,.8);text-align:center;
+  animation:wuoSlide .5s ease .45s both;}
+.wuo-desc{font-size:14px;font-weight:700;color:rgba(255,255,255,.6);text-align:center;
+  animation:wuoSlide .5s ease .55s both;}
+@keyframes wuoSlide{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.btn-wuo{
+  background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);
+  border-radius:20px;padding:12px 28px;font-family:'Fredoka One',cursive;
+  font-size:19px;color:#fff;cursor:pointer;
+  animation:wuoSlide .5s ease .7s both;
+  transition:background .2s;
+}
+.btn-wuo:hover{background:rgba(255,255,255,.3);}
+
+/* map daily button */
+.map-daily-btn{
+  display:flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#f0a500,#e07000);
+  border:none;border-radius:18px;padding:8px 14px;
+  font-family:'Fredoka One',cursive;font-size:14px;color:#fff;
+  cursor:pointer;box-shadow:0 3px 12px rgba(224,112,0,.3);
+  transition:transform .14s;margin:0 18px 14px;width:calc(100% - 36px);
+  justify-content:center;
+}
+.map-daily-btn:active{transform:scale(.97);}
+.map-daily-pulse{animation:dailyPulse 2s ease-in-out infinite;}
+@keyframes dailyPulse{0%,100%{box-shadow:0 3px 12px rgba(224,112,0,.3);}50%{box-shadow:0 4px 20px rgba(224,112,0,.6);}}
+.daily-dot{width:9px;height:9px;border-radius:50%;background:#fff;
+  box-shadow:0 0 6px rgba(255,255,255,.8);animation:dotBlink 1.2s ease-in-out infinite;}
+@keyframes dotBlink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* phase badge on world card */
+.phase-pill{
+  font-size:10px;font-weight:900;border-radius:8px;padding:2px 7px;margin-left:4px;
+  vertical-align:middle;
+}
+.phase-0{background:#d4f5d0;color:#1a6a1a;}
+.phase-4{background:#e8d5ff;color:#5b10a0;}
+/* ══ A07: Stats game tabs ══ */
+.stat-game-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.stat-tab{padding:6px 14px;border-radius:20px;border:2px solid var(--soft);background:var(--card);
+  font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.stat-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.stat-tab:hover{border-color:var(--accent);}
+
+/* ══ B07: Splash screen ══ */
+.splash-screen{position:fixed;inset:0;z-index:10000;background:var(--bg,#fff0f9);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .35s;animation:splash-fallback 5s forwards;}
+@keyframes splash-fallback{0%,80%{opacity:1;pointer-events:all;}100%{opacity:0;pointer-events:none;}}
+.splash-logo{font-family:'Fredoka One',cursive;font-size:48px;color:var(--accent,#d63fa6);}
+.splash-tag{font-family:'Nunito',sans-serif;font-size:16px;color:var(--muted,#b080b0);margin-top:8px;}
+.splash-screen.hide{opacity:0;pointer-events:none;}
+
+/* ══ B01: Resume game button ══ */
+.btn-games-resume{display:inline-block;margin-bottom:4px;padding:8px 18px;border-radius:14px;
+  background:var(--accent);color:#fff;border:none;font-family:'Fredoka One',cursive;
+  font-size:13px;cursor:pointer;transition:transform .15s;}
+.btn-games-resume:active{transform:scale(.95);}
+
+/* ══ B04: Completed world card ══ */
+.world-card.world-completed{background:linear-gradient(135deg,#fff9e6,#fff3cd) !important;
+  border-left:4px solid #ffd700 !important;}
+.world-card.world-completed::after{content:'👑';position:absolute;right:12px;top:50%;
+  transform:translateY(-50%);font-size:20px;opacity:.7;}
+
+/* ══ B06: Game pill in header — now prominent ══ */
+
+/* ══ B08: Game tutorial overlay ══ */
+.game-tut-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;}
+.game-tut-overlay.show{opacity:1;}
+.game-tut-card{background:#fff;border-radius:24px;padding:32px 28px;max-width:340px;width:90%;
+  text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.2);}
+.game-tut-em{font-size:48px;margin-bottom:8px;}
+.game-tut-title{font-family:'Fredoka One',cursive;font-size:20px;color:var(--text);margin-bottom:8px;}
+.game-tut-desc{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:16px;}
+.game-tut-dots{display:flex;gap:6px;justify-content:center;margin-bottom:16px;}
+.game-tut-dot{width:8px;height:8px;border-radius:50%;background:var(--soft);}
+.game-tut-dot.on{background:var(--accent);}
+.game-tut-btns{display:flex;gap:10px;justify-content:center;}
+.game-tut-skip{padding:8px 18px;border-radius:14px;border:2px solid var(--soft);background:#fff;
+  font-family:'Fredoka One',cursive;font-size:14px;color:var(--muted);cursor:pointer;}
+.game-tut-next{padding:8px 22px;border-radius:14px;border:none;background:var(--accent);
+  font-family:'Fredoka One',cursive;font-size:14px;color:#fff;cursor:pointer;}
+
+/* ══ C06: Hint tooltip ══ */
+.hint-tooltip{position:fixed;z-index:5000;background:#fff;border:2px solid var(--accent);
+  border-radius:14px;padding:10px 16px;font-family:'Nunito',sans-serif;font-size:13px;
+  font-weight:700;color:var(--text);box-shadow:0 4px 16px var(--sh);
+  transform:translateX(-50%) translateY(4px);opacity:0;transition:opacity .2s,transform .2s;
+  max-width:280px;text-align:center;pointer-events:none;}
+.hint-tooltip.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ══ E01: Touch feedback on game cards ══ */
+.game-card:active{transform:scale(.96);transition:transform .1s;}
+
+/* ══ E03: Animated progress bars ══ */
+.world-prog-fill,.wsbar-fill,.acc-fill{transition:width .6s ease-out;}
+
+/* ══ E05: Screen transitions ══ */
+.screen{opacity:0;transition:opacity .18s ease-out;}
+.screen.active{opacity:1;}
+
+/* ══ D03: Limit world card animations to visible cards ══ */
+.wtheme{will-change:auto;}
+.world-card:not(.unlocked) .wtheme{display:none;}
+@media (prefers-reduced-motion:reduce){.wtheme{display:none !important;}.cfp{animation:none !important;}}
+
+/* ══ E02: World card "in progress" state ══ */
+.world-card.world-in-progress{border-left:4px solid var(--accent) !important;}
+.world-card.world-in-progress .world-prog-fill{background:linear-gradient(90deg,var(--accent),var(--a2)) !important;}
+
+/* ══ CG01: Unified game sub-header (maze, nono, tang, slide) ══ */
+.game-sub-hdr .hdr-av{font-size:20px;}
+.game-sub-hdr .hdr-nm{font-size:15px;}
+.game-metric-pill{background:rgba(255,255,255,.22);backdrop-filter:blur(4px);
+  border-radius:12px;padding:4px 12px;font-family:'Fredoka One',cursive;
+  font-size:13px;color:var(--text);font-weight:700;}
+.game-info-bar .hint-btn{margin:0;padding:6px 14px;font-size:14px;}
+
+/* ══ UX02: Locked world shake + tooltip ══ */
+.world-card.locked{cursor:pointer !important;}
+.world-card.locked.shake-lock{animation:shake-lock .4s ease;}
+@keyframes shake-lock{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}50%{transform:translateX(-3px);}}
+.lock-tooltip{position:absolute;bottom:-32px;left:50%;transform:translateX(-50%);
+  background:var(--text);color:#fff;padding:5px 14px;border-radius:10px;
+  font-size:12px;font-weight:700;white-space:nowrap;z-index:10;
+  opacity:0;animation:lock-tip-in .3s .1s forwards;}
+@keyframes lock-tip-in{to{opacity:1;}}
+
+/* ══ UX05: Ripple effect ══ */
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);
+  transform:scale(0);animation:ripple-anim .5s ease-out forwards;pointer-events:none;}
+@keyframes ripple-anim{to{transform:scale(3);opacity:0;}}
+button,.game-card,.world-card,.prof-card,.sym-pick{position:relative;overflow:hidden;}
+
+/* ══ UX10: Toast component ══ */
+.mg-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--text);color:#fff;padding:10px 22px;border-radius:14px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;z-index:9000;
+  box-shadow:0 6px 24px rgba(0,0,0,.2);opacity:0;transition:all .3s;}
+.mg-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ══ UX18: Puzzle generation spinner ══ */
+.puzzle-spinner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb,var(--bg) 80%,transparent);z-index:5;border-radius:22px;}
+.puzzle-spinner::after{content:'';width:32px;height:32px;border:4px solid var(--soft);
+  border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ══ GD09: Timer display ══ */
+.game-timer{font-family:'Fredoka One',cursive;font-size:13px;color:var(--muted);
+  background:var(--card);border-radius:10px;padding:3px 10px;display:flex;align-items:center;gap:4px;}
+
+/* ══ UX08: Recommended world highlight ══ */
+.world-card.world-recommended{border-left:4px solid var(--accent) !important;
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent) !important;}
+.world-card.world-recommended::before{content:'👉';position:absolute;left:-28px;top:50%;
+  transform:translateY(-50%);font-size:18px;animation:point-pulse 1s ease-in-out infinite;}
+@keyframes point-pulse{0%,100%{transform:translateY(-50%) translateX(0);}50%{transform:translateY(-50%) translateX(4px);}}
+
+/* ══ UX06: Palette preview mini-grid ══ */
+.pal-preview{display:grid;grid-template-columns:repeat(2,18px);gap:3px;margin-top:4px;}
+.pal-preview-cell{width:18px;height:18px;border-radius:5px;}
+
+/* ══ UX11: Profile edit button ══ */
+.prof-edit{position:absolute;top:6px;left:6px;width:26px;height:26px;border-radius:50%;
+  border:none;background:var(--accent);color:#fff;font-size:12px;cursor:pointer;
+  display:none;align-items:center;justify-content:center;z-index:2;}
+.prof-card .prof-edit{display:none;}
+/* Show edit btn in edit mode (toggled via _editMode) — reuse prof-del visibility logic */
+
+/* ══ VD06: Badge unlock — larger, slower, bounce ══ */
+.badge-unlock {
+  min-width: 300px !important; padding: 18px 24px !important;
+  animation: badgeBounceIn .5s cubic-bezier(.34,1.56,.64,1) forwards,
+             fadeOut .5s ease 4.5s forwards !important;
+}
+.bu-em { font-size: 42px !important; }
+.bu-title { font-size: 16px !important; }
+@keyframes badgeBounceIn {
+  from { opacity:0; transform: translateX(-50%) translateY(-40px) scale(.8); }
+  to   { opacity:1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+/* ══ VD07: Celebration buttons — full-width, larger ══ */
+.cel-btns { width: 100% !important; max-width: 320px; }
+.btn-next { width: 100% !important; padding: 16px !important; font-size: 20px !important;
+  min-height: 52px; }
+.btn-replay { width: 100% !important; padding: 14px !important; min-height: 48px; }
+.btn-theme-switch { width: 100% !important; padding: 12px !important; min-height: 44px; }
+
+/* ══ VD08: Map header softer gradient vs game header ══ */
+.map-hdr {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--accent) 85%, #fff),
+    var(--a2)) !important;
+}
+
+/* ══ VD12: Profile cards — palette accent border ══ */
+.prof-card {
+  border-left: 4px solid var(--accent) !important;
+  transition: transform .15s, box-shadow .15s !important;
+}
+.prof-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--sh); }
+.prof-card.active-prof { border-left-color: var(--a2) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent) !important; }
+
+/* ══ VD15: Font fallback ══ */
+@font-face {
+  font-family: 'Fredoka One';
+  font-display: swap;
+  src: local('Fredoka One');
+}
+
+/* ══ VD16: Scroll-to on world unlock — handled via JS scrollIntoView ══ */
+.world-card.world-just-unlocked {
+  animation: worldUnlockPulse 1.5s ease 2;
+}
+@keyframes worldUnlockPulse {
+  0%,100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 40%, transparent); }
+  50%     { box-shadow: 0 0 0 12px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+
+/* ══ UX13: Toast on profile creation ══ */
+/* Uses the showToast from Sprint 3 — just need JS call */
+
+/* ══ UX16: Slide counter below grid ══ */
+.slide-bottom-counter {
+  font-family: 'Fredoka One', cursive; font-size: 16px; color: var(--muted);
+  text-align: center; margin-top: 8px;
+}
+
+/* ══ VD05: Confetti emoji spin ══ */
+@keyframes cfp-spin { to { transform: rotate(360deg); } }
+
+/* ══ UX12: Stats button in game selection ══ */
+.btn-games-stats {
+  display: block; margin: 12px auto 0; padding: 10px 20px;
+  background: var(--soft); border: 2px solid var(--accent); border-radius: 16px;
+  font-family: 'Fredoka One', cursive; font-size: 14px; color: var(--accent);
+  cursor: pointer; transition: transform .15s;
+}
+.btn-games-stats:active { transform: scale(.95); }
+
+/* ══ Skill level selector ══ */
+.level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
+.level-card{background:var(--card);border-radius:16px;padding:14px 8px;text-align:center;
+  cursor:pointer;border:3px solid transparent;transition:all .18s;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.level-card.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--card));
+  box-shadow:0 4px 16px var(--sh);}
+.level-card:active{transform:scale(.95);}
+.level-em{font-size:28px;margin-bottom:4px;}
+.level-name{font-family:'Fredoka One',cursive;font-size:14px;color:var(--text);}
+.level-desc{font-size:10px;color:var(--muted);font-weight:700;margin-top:2px;line-height:1.3;}
+
+/* ══ CG12: Rules "?" button ══ */
+.rules-btn{width:28px;height:28px;border-radius:50%;border:2px solid var(--accent);
+  background:var(--card);color:var(--accent);font-family:'Fredoka One',cursive;
+  font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .15s;flex-shrink:0;}
+.rules-btn:active{transform:scale(.88);}
